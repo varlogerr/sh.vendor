@@ -20,6 +20,6 @@ __opts_detect() {
   OPTS[initdir]="${initdirs[0]:-${OPTS[initdir]}}"
 
   [[ ${#initdirs[@]} -gt 1 ]] && {
-    ERRBAG+=("Only 1 argument is expected")
+    msgbag_add ERRBAG "Only 1 argument is expected"
   }
 } && __opts_detect "${@}"

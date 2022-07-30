@@ -26,6 +26,6 @@ __create_gitignore() {
 
   cp -- "${KEEPER[tooldir]}/tpl/gitignore" "${dest}" || {
     RC=$?
-    ERRBAG+=("($RC) Can't create gitignore file: ${dest}")
+    msgbag_add ERRBAG "($RC) Can't create gitignore file: ${dest}"
   }
 } && __create_gitignore
