@@ -18,7 +18,7 @@ KEEPER[tooldir]="$(realpath "${KEEPER[bindir]}/..")"
 KEEPER[incdir]="${KEEPER[tooldir]}/inc"
 KEEPER[vendor_dir]="${KEEPER[tooldir]}/vendor"
 
-. "${KEEPER[vendor_dir]}/.lib/lib/lib/txt.sh"
+. "${KEEPER[vendor_dir]}/.lib/lib/main.sh" aliased
 
 . "${KEEPER[incdir]}/opts.sh"
 . "${KEEPER[incdir]}/run.sh"

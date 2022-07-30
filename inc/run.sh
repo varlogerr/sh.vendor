@@ -12,12 +12,9 @@ done <<< "
   run.before
 "
 
-[[ ${#ERRBAG[@]} -lt 1 ]] || {
+msgbag_is_empty ERRBAG || {
   echo
-  for e in "${ERRBAG[@]}"; do
-    printf -- '%s\n' "${e}"
-  done
-
+  msgbag2list ERRBAG >&2
   echo
   echo "Issue \`${KEEPER[tool]} -h\` for help"
   exit 1
@@ -25,9 +22,7 @@ done <<< "
 
 . "${KEEPER[actdir]}/run.sh"
 
-[[ ${#ERRBAG[@]} -lt 1 ]] || {
+msgbag_is_empty ERRBAG || {
   echo
-  for e in "${ERRBAG[@]}"; do
-    printf -- '%s\n' "${e}"
-  done
+  msgbag2list ERRBAG >&2
 }

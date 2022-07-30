@@ -5,7 +5,7 @@ __opts_detect() {
     [[ -z "${1+x}" ]] && break
 
     case "${1}" in
-      * ) ERRBAG+=("Invalid argument: ${1}") ;;
+      * ) msgbag_add ERRBAG "Invalid argument: ${1}" ;;
     esac
 
     shift
