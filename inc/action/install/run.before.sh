@@ -9,7 +9,7 @@ OPTS+=(
 # Blocking validations
 #
 
-[[ "${#ERRBAG[@]}" -lt 1 ]] && {
+msgbag_is_empty ERRBAG && {
   __detect_conffile_dir() {
     unset __detect_conffile_dir
     log_stage "Detecting CONFFILE directory"
@@ -23,24 +23,26 @@ OPTS+=(
     unset __validate_conffile_format
     log_stage "Validating CONFFILE format"
 
-    local valid_lines_rexes="$(txt_rmblank <<< '
-      vendor\.dir=.+
-      (tool|lib)\.[^@=]+(@[^=]*)?=.+
-    ' | txt_trim)"
-    local conffile_content="$(
-      conffile_strip "${OPTS[conffile]}"
-    )"
+    # TODO fix validation
 
-    VALID_CONFFILE_LINES="$(grep -Ex -f <(echo "${valid_lines_rexes}") \
-      <<< "${conffile_content}")"
+    # local valid_lines_rexes="$(txt_rmblank <<< '
+    #   vendor\.dir=.+
+    #   (tool|lib)\.[^@=]+(@[^=]*)?=.+
+    # ' | txt_trim)"
+    # local conffile_content="$(
+    #   conffile_strip "${OPTS[conffile]}"
+    # )"
 
-    while read -r inval; do
-      [[ -n "${inval}" ]] || continue
-      ERRBAG+=("Invalid CONFFILE line: ${inval}")
-    done <<< "$(
-      grep -vFxf  <(printf -- '%s' "${VALID_CONFFILE_LINES}") \
-        <<< "${conffile_content}"
-    )"
+    # VALID_CONFFILE_LINES="$(grep -Ex -f <(echo "${valid_lines_rexes}") \
+    #   <<< "${conffile_content}")"
+
+    # while read -r inval; do
+    #   [[ -n "${inval}" ]] || continue
+    #   ERRBAG+=("Invalid CONFFILE line: ${inval}")
+    # done <<< "$(
+    #   grep -vFxf  <(printf -- '%s' "${VALID_CONFFILE_LINES}") \
+    #     <<< "${conffile_content}"
+    # )"
   } && __validate_conffile_format
 
   __parse_conffile() {
