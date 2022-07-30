@@ -22,6 +22,6 @@ __opts_detect() {
   OPTS[conffile]="${pos_args[0]:-${OPTS[conffile]}}"
 
   for arg in "${pos_args[@]:1}"; do
-    ERRBAG+=("Invalid argument: ${arg}")
+    msgbag_add ERRBAG "Invalid argument: ${arg}"
   done
 } && __opts_detect "${@}"

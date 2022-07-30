@@ -39,7 +39,7 @@ install_vendor() {
   [[ "${install_dir}" == "${OPTS[vendor_dir]}"* ]] || return 1
 
   mkdir -p "${install_dir}" || {
-    ERRBAG+=("Error creating vendor directory: ${install_dir}")
+    msgbag_add ERRBAG "Error creating vendor directory: ${install_dir}"
     return 1
   }
 
@@ -47,20 +47,20 @@ install_vendor() {
   git init -q
   git remote remove origin 2> /dev/null
   git remote add origin -f --tags "${url}" || {
-    ERRBAG+=("Error adding origin: ${name}")
+    msgbag_add ERRBAG "Error adding origin: ${name}"
     return 1
   }
   # -p and -P for pruning non-existing remotely
   # references and tags
   git fetch -p -P -f || {
-    ERRBAG+=("Error fetching: ${name}")
+    msgbag_add ERRBAG "Error fetching: ${name}"
     return 1
   }
   git reset origin/master --hard
   # remove untracked files
   git clean -f -d -X
   git checkout -q "${ver}" || {
-    ERRBAG+=("Error switching to version: ${name}@${ver}")
+    msgbag_add ERRBAG "Error switching to version: ${name}@${ver}"
     return 1
   }
 
